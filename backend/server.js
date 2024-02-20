@@ -17,7 +17,7 @@ mongoose.connection.on("error", (error) => {
 
 // Get saved tasks from the database 
 app.get("/getTodoList", (req, res) => {
-	TodoModel.find({})
+	TodoModel.find().sort({ createdAt: -1 })
 		.then((todoList) => res.json(todoList))
 		.catch((err) => res.json(err))
 });
