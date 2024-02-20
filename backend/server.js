@@ -24,10 +24,8 @@ app.get("/getTodoList", (req, res) => {
 
 // Add new task to the database 
 app.post("/addTodoList", (req, res) => {
-	TodoModel.create({
-		task: req.body.task,
-		price: req.body.price,
-	})
+	const createTask = req.body;
+	TodoModel.create(createTask)
 		.then((todo) => res.json(todo))
 		.catch((err) => res.json(err));
 });
@@ -35,11 +33,8 @@ app.post("/addTodoList", (req, res) => {
 // Update task fields (including deadline) 
 app.post("/updateTodoList/:id", (req, res) => {
 	const id = req.params.id;
-	const updateData = {
-		task: req.body.task,
-		status: req.body.status,
-		deadline: req.body.deadline,
-	};
+
+	const updateData = req.body;
 	TodoModel.findByIdAndUpdate(id, updateData)
 		.then((todo) => res.json(todo))
 		.catch((err) => res.json(err));
